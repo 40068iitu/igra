@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { GameCanvas } from './components/GameCanvas';
-import { GameState } from './types';
+import { GameCanvas } from './GameCanvas';
+import { GameState } from '../types';
 import { Github, Keyboard } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -13,7 +13,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center p-4">
       
-      <header className="mb-6 text-center">
+      <header className="mb-6 text-center relative z-10">
         <h1 className="text-4xl md:text-5xl font-bold text-orange-400 mb-2 tracking-wider" style={{ textShadow: '4px 4px 0 #000' }}>
           KOTO QUEST
         </h1>
@@ -21,7 +21,7 @@ const App: React.FC = () => {
       </header>
 
       {gameState === 'menu' && (
-        <div className="max-w-2xl w-full bg-slate-800 p-8 rounded-xl border-4 border-slate-700 shadow-2xl text-center space-y-8">
+        <div className="max-w-2xl w-full bg-slate-800 p-8 rounded-xl border-4 border-slate-700 shadow-2xl text-center space-y-8 relative z-10">
           <div className="space-y-4">
             <h2 className="text-2xl text-yellow-400">MISSION: FIND POLINA</h2>
             <p className="text-slate-300 leading-relaxed">
@@ -65,16 +65,16 @@ const App: React.FC = () => {
       )}
 
       {gameState === 'playing' && (
-        <div className="relative">
+        <div className="relative w-full max-w-[800px]">
           <GameCanvas onWin={handleWin} />
-          <div className="absolute top-4 left-4 text-xs text-slate-500 bg-black/50 p-2 rounded">
+          <div className="absolute top-4 left-4 text-xs text-slate-500 bg-black/50 p-2 rounded pointer-events-none hidden md:block">
             <p>Controls:</p>
             <p>P1 (Marsik): WASD</p>
             <p>P2 (Marusya): Arrows</p>
           </div>
           <button 
             onClick={handleRestart}
-            className="absolute top-4 right-4 bg-red-600/80 hover:bg-red-500 text-white text-xs px-3 py-2 rounded border-2 border-red-800"
+            className="absolute top-4 right-4 bg-red-600/80 hover:bg-red-500 text-white text-xs px-3 py-2 rounded border-2 border-red-800 z-50"
           >
             ABORT
           </button>
@@ -82,7 +82,7 @@ const App: React.FC = () => {
       )}
 
       {gameState === 'won' && (
-        <div className="text-center bg-slate-800 p-10 rounded-xl border-4 border-yellow-500 shadow-[0_0_50px_rgba(234,179,8,0.3)]">
+        <div className="text-center bg-slate-800 p-10 rounded-xl border-4 border-yellow-500 shadow-[0_0_50px_rgba(234,179,8,0.3)] relative z-10">
           <h2 className="text-4xl text-yellow-400 mb-6 animate-bounce">MEOW! YOU WON!</h2>
           <p className="text-slate-300 mb-8">Marsik and Marusya found Polina!</p>
           <div className="flex justify-center gap-4 mb-8">
@@ -106,7 +106,7 @@ const App: React.FC = () => {
         </div>
       )}
       
-      <footer className="mt-12 text-slate-600 text-xs flex items-center gap-2">
+      <footer className="mt-12 text-slate-600 text-xs flex items-center gap-2 relative z-10">
         <span>Made with React & Canvas</span>
       </footer>
     </div>
